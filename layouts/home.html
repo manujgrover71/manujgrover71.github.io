@@ -1,0 +1,73 @@
+{{ define "main" }}
+<section class="section container-fluid mt-n3 pb-3">
+  <div class="row justify-content-center">
+    <div class="col-lg-9 col-xl-8">
+
+      <!-- Terminal Window -->
+      <div class="terminal-window shadow mb-4">
+        <div class="terminal-bar">
+          <span class="dot bg-danger"></span>
+          <span class="dot bg-warning"></span>
+          <span class="dot bg-success"></span>
+          <span class="title">~/blog $ ls -l</span>
+        </div>
+
+        <div class="terminal-body">
+          <pre>
+$ cat latest-posts.log
+{{ range first 10 (where .Site.RegularPages "Section" "blog") -}}
+[{{ .Date.Format "2006-01-02" }}] > <a href="{{ .RelPermalink }}" class="terminal-link">{{ .Title }}</a> ({{ .ReadingTime }} min read)
+{{ end }}
+          </pre>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.terminal-window {
+  background: var(--bs-dark);
+  border-radius: .5rem;
+  overflow: hidden;
+  font-family: var(--bs-font-monospace);
+  color: var(--bs-light);
+}
+.terminal-bar {
+  background: var(--bs-gray-900);
+  padding: .5rem .75rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.terminal-bar .dot {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.terminal-bar .title {
+  margin-left: auto;
+  font-size: .85rem;
+  color: var(--bs-gray-400);
+}
+.terminal-body {
+  padding: 1rem;
+}
+.terminal-body pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: .95rem;
+}
+.terminal-link {
+  color: var(--bs-primary);
+  text-decoration: none;
+}
+.terminal-link:hover {
+  color: var(--bs-info);
+  text-decoration: underline;
+}
+</style>
+{{ end }}

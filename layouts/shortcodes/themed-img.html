@@ -1,0 +1,23 @@
+{{ $light := .Get "light" }}
+{{ $dark  := .Get "dark" }}
+{{ $alt   := .Get "alt" | default "" }}
+<img class="themed-img themed-img--light" src="{{ $light }}" alt="{{ $alt }}">
+<img class="themed-img themed-img--dark"  src="{{ $dark  }}"  alt="{{ $alt }}">
+
+<style>
+  /* Default: respect system preference */
+.themed-img--light { display: inline; }
+.themed-img--dark  { display: none; }
+
+@media (prefers-color-scheme: dark) {
+  .themed-img--light { display: none; }
+  .themed-img--dark  { display: inline; }
+}
+
+html[data-theme="light"] .themed-img--light { display: inline !important; }
+html[data-theme="light"] .themed-img--dark  { display: none !important; }
+
+html[data-theme="dark"] .themed-img--light { display: none !important; }
+html[data-theme="dark"] .themed-img--dark  { display: inline !important; }
+
+</style>
