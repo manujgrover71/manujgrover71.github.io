@@ -218,6 +218,9 @@
       "text-muted",
       "text-nowrap",
       "text-reset",
+      "themed-img",
+      "themed-img--dark",
+      "themed-img--light",
       "title",
       "title-submitted",
       "visually-hidden",
@@ -229,6 +232,8 @@
       "default-bridge-limitations",
       "default-bridge-network",
       "default-bridge-vs-user-defined-bridge",
+      "fixing-accuracy-instead-of-levels",
+      "footprint-where-i-had-the-assumption-backwards",
       "h-rh-i-0",
       "h-rh-i-1",
       "h-rh-i-2",
@@ -242,6 +247,7 @@
       "port-mapping-vs-container-communication",
       "presigned-url-to-the-rescue",
       "query",
+      "query-latency-and-when-it-stops-mattering",
       "scaling--practical-considerations",
       "search-form",
       "searchModal",
@@ -267,7 +273,11 @@
       "upload-server-taking-the-lead",
       "uploading-directly-to-file-storage",
       "user-defined-bridge-networks",
-      "what-changed"
+      "what-a-covering-costs",
+      "what-changed",
+      "what-h3s-approximate-hierarchy-actually-costs",
+      "what-id-use-where",
+      "where-this-benchmark-is-weak"
     ]
   }
 }
