@@ -1,0 +1,54 @@
+# Home page profile. The bio paragraphs live in content/_index.md.
+
+name: Manuj Grover
+role: Backend Engineer
+
+# Paths inside assets/. "avatar" shows first; clicking it reveals "avatarAlt" (leave empty for no toggle).
+avatar: images/photo-avatar.png
+avatarAlt: images/cartoon.jpeg
+# Favicon and home-screen icon
+icon: images/cartoon.jpeg
+
+email: manujgrover71@gmail.com
+call: https://cal.com/manuj-grover
+
+# icon = a file name in assets/icons/ (without .svg)
+socials:
+  - name: GitHub
+    url: https://github.com/manujgrover71
+    icon: brand-github
+  - name: LinkedIn
+    url: https://www.linkedin.com/in/manujgrover71/
+    icon: brand-linkedin
+
+# Newest first. "highlights" (optional) expand under the row via its [+] toggle; markdown works.
+work:
+  - from: Jan 2026
+    to: Now
+    role: SDE III
+    company: Zomato
+    url: https://www.zomato.com
+    highlights:
+      - "Taught our systems to spot delivery partners riding on the wrong side of the road. Those orders fell 42%, and the roads got a little calmer."
+      - "Automated the reshuffling of geo-entities, the invisible lines on our delivery map. Nobody redraws them by hand anymore, and it saves ₹25L a month."
+      - "Dreamt up Circles and Return-to-Home. Partners now stay logged in 12% longer and sit idle 3% less; turns out everyone likes a ride home."
+  - from: Jul 2024
+    to: Dec 2025
+    role: SDE II
+    company: Zomato
+    url: https://www.zomato.com
+    highlights:
+      - "Turned a rule engine that needed 500 tasks into a library that runs on 3. Same rules, far fewer machines to babysit."
+      - "Talked DynamoDB down from $3,000 a day to $500. It took the news surprisingly well."
+      - "Put the Leaves library on a diet: ~40% leaner, with p99 latency down 39%."
+      - "Shipped Quick Delivery, MRO, Collections and, most importantly, Pre-Order Cakes."
+  - from: Nov 2022
+    to: Jun 2024
+    role: SDE
+    company: Zomato
+    url: https://www.zomato.com
+    highlights:
+      - "Built three services that peaked at over 16 million requests a minute between them, and kept a straight face doing it."
+      - "Moved the important data from MySQL to DynamoDB, and the storage bill shrank 18%."
+      - "Ran tech for the OTG pod while the business grew 34%. Correlation or causation, I'll take either."
+      - "Made distance calculations 50% more accurate, so the distance we charge for finally matches the road."

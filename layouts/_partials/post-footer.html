@@ -1,0 +1,16 @@
+{{- /* "Elsewhere" links under every post: email, call link, then socials, all from data/profile.yaml. */ -}}
+{{- $p := site.Data.profile -}}
+<footer class="post-footer">
+  <h2 class="post-footer-label">Elsewhere</h2>
+  <ul class="post-footer-links">
+    {{- with $p.email }}
+      <li><a href="mailto:{{ . }}?subject=Hello!">Email</a></li>
+    {{- end }}
+    {{- with $p.call }}
+      <li><a href="{{ . }}" target="_blank" rel="noopener">Book a call{{ partial "icon.html" (dict "name" "arrow-up-right" "size" 13) }}</a></li>
+    {{- end }}
+    {{- range $p.socials }}
+      <li><a href="{{ .url }}" target="_blank" rel="noopener">{{ .name }}{{ partial "icon.html" (dict "name" "arrow-up-right" "size" 13) }}</a></li>
+    {{- end }}
+  </ul>
+</footer>

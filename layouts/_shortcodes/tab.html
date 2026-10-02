@@ -1,0 +1,6 @@
+{{- /* One tab inside {{< tabs "id" >}}. Usage: {{< tab "server.go" >}} ...markdown... {{< /tab >}} */ -}}
+{{- if not .Parent -}}
+  {{- errorf "%s: 'tab' must be inside 'tabs'" .Position -}}
+{{- end -}}
+{{- $tabs := .Parent.Store.Get "tabs" | default slice -}}
+{{- .Parent.Store.Set "tabs" ($tabs | append (dict "name" (.Get 0) "content" .Inner)) -}}

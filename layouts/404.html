@@ -1,0 +1,14 @@
+{{ define "main" }}
+<main class="page page--post">
+  <header class="page-header">
+    {{ partial "back-link.html" (dict "url" site.Home.RelPermalink "label" "Home") }}
+    <div class="page-heading">
+      <h1 class="page-title">Page not found</h1>
+      <p class="post-meta">404</p>
+    </div>
+  </header>
+  <article class="prose">
+    <p>Nothing lives at this address. Try the <a href="{{ site.Home.RelPermalink }}">home page</a> or the <a href="{{ (site.GetPage "/blog").RelPermalink }}">list of posts</a>.</p>
+  </article>
+</main>
+{{ end }}

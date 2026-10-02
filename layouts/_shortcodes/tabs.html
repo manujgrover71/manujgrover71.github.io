@@ -1,0 +1,15 @@
+{{- /* Tabbed panels. Usage: {{< tabs "some-id" >}} {{< tab "a.go" >}}...{{< /tab >}} {{< /tabs >}} */ -}}
+{{- with .Inner }}{{ end -}}
+{{- $id := .Get 0 | default (printf "tabs-%d" .Ordinal) | anchorize -}}
+<div class="tabs" data-tabs>
+  <div class="tabs-list" role="tablist">
+    {{- range $i, $t := .Store.Get "tabs" }}
+      <button type="button" role="tab" class="tab" id="{{ $id }}-tab-{{ $i }}" aria-controls="{{ $id }}-panel-{{ $i }}" aria-selected="{{ if eq $i 0 }}true{{ else }}false{{ end }}" {{- if ne $i 0 }} tabindex="-1"{{ end }}>{{ $t.name }}</button>
+    {{- end }}
+  </div>
+  {{- range $i, $t := .Store.Get "tabs" }}
+    <div class="tab-panel" role="tabpanel" id="{{ $id }}-panel-{{ $i }}" aria-labelledby="{{ $id }}-tab-{{ $i }}" {{- if ne $i 0 }} hidden{{ end }}>
+      {{ $t.content | $.Page.RenderString (dict "display" "block") }}
+    </div>
+  {{- end }}
+</div>

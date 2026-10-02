@@ -1,0 +1,6 @@
+{{- /* Returns the post's `image` front matter as a resource (page bundle first, then assets/), or nothing. */ -}}
+{{- $img := "" -}}
+{{- with .Params.image -}}
+  {{- $img = or ($.Resources.Get .) (resources.Get .) -}}
+{{- end -}}
+{{- return $img -}}

@@ -1,0 +1,39 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+{{/* Runs before paint so the page never flashes the wrong theme. Preference: system | light | dark */}}
+<script>
+  (function () {
+    var p;
+    try { p = localStorage.getItem("theme"); } catch (e) {}
+    if (p !== "light" && p !== "dark") p = "system";
+    var dark = p === "dark" || (p === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
+    document.documentElement.dataset.theme = dark ? "dark" : "light";
+    document.documentElement.dataset.themePref = p;
+  })();
+</script>
+
+{{ partial "seo.html" . }}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap">
+
+{{ $cssSrc := slice (resources.Get "css/main.css") (resources.Get "css/syntax.css") }}
+{{ $cssKey := "" }}{{ range $cssSrc }}{{ $cssKey = printf "%s%s" $cssKey .Content }}{{ end }}
+{{ $cssMin := $cssSrc | resources.Concat "css/bundle.css" | minify }}
+{{ $css := resources.FromString (printf "assets/style.%s.css" (substr (md5 $cssKey) 0 10)) $cssMin.Content }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ ($css | fingerprint).Data.Integrity }}">
+
+{{ with resources.Get (site.Data.profile.icon | default site.Data.profile.avatar) }}
+  {{ $ico := partial "publish.html" (dict "res" (.Fill "32x32 png") "dir" "img" "name" "icon-32" "ext" ".png" "key" (printf "%s|Fill 32x32 png" (md5 .Content))) }}
+  {{ $apple := partial "publish.html" (dict "res" (.Fill "180x180 png") "dir" "img" "name" "icon-180" "ext" ".png" "key" (printf "%s|Fill 180x180 png" (md5 .Content))) }}
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ $ico.RelPermalink }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ $apple.RelPermalink }}">
+{{ end }}
+
+{{ with site.GetPage "/blog" }}
+  {{ with .OutputFormats.Get "rss" }}
+    <link rel="alternate" type="application/rss+xml" href="{{ .Permalink }}" title="{{ site.Title }}">
+  {{ end }}
+{{ end }}
