@@ -1,0 +1,20 @@
+{{- /*
+  Dotted-underlined phrase that shows a small card on hover, focus or tap.
+  Usage: {{< fact rate=1000000 unit="requests" note="..." >}}60 million{{< /fact >}}
+  Params: rate (optional, per second) adds a live "N <unit> at that pace since you opened this page" counter;
+          unit (default "requests"); note (optional, markdown) is the line under it.
+*/ -}}
+{{- $id := printf "fact-%d" .Ordinal -}}
+<span class="fact" data-fact {{- with .Get "rate" }} data-rate="{{ . }}"{{ end }}>
+  {{- "" -}}
+  <button type="button" class="fact-trigger" aria-expanded="false" aria-describedby="{{ $id }}">{{ .Inner | .Page.RenderString }}</button>
+  {{- "" -}}
+  <span class="fact-card" role="tooltip" id="{{ $id }}">
+    {{- with .Get "rate" -}}
+      <span class="fact-count"><strong data-fact-count>0</strong> {{ $.Get "unit" | default "requests" }} at that pace since you opened this page</span>
+    {{- end -}}
+    {{- with .Get "note" }}<span class="fact-note">{{ . | $.Page.RenderString }}</span>{{ end -}}
+  </span>
+  {{- "" -}}
+</span>
+{{- /**/ -}}

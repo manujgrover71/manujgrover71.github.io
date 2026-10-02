@@ -1,0 +1,16 @@
+{{- /* External links open in a new tab; on the home page they also get a ↗ arrow, like the bio's Zomato link. */ -}}
+{{- $u := urls.Parse .Destination -}}
+{{- $href := .Destination -}}
+{{- $external := and $u.IsAbs (ne $u.Host (urls.Parse site.BaseURL).Host) (ne $u.Scheme "mailto") -}}
+{{- if and (not $u.IsAbs) $u.Path -}}
+  {{- with .PageInner.GetPage $u.Path -}}
+    {{- $href = .RelPermalink -}}
+    {{- with $u.Fragment }}{{ $href = printf "%s#%s" $href . }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+<a href="{{ $href }}"
+  {{- with .Title }} title="{{ . }}"{{ end }}
+  {{- if $external }} class="external" target="_blank" rel="noopener"{{ end }}>{{ .Text | safeHTML }}
+  {{- if and $external .Page.IsHome }}{{ partial "icon.html" (dict "name" "arrow-up-right" "size" 12) }}{{ end -}}
+</a>
+{{- /**/ -}}

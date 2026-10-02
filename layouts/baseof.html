@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="{{ site.Language.LanguageCode | default "en" }}" data-theme="dark">
+<head>
+  {{ partial "head.html" . }}
+</head>
+<body>
+  {{ block "main" . }}{{ end }}
+
+  {{ partial "theme-toggle.html" . }}
+
+  {{ $jsSrc := resources.Get "js/main.js" }}
+  {{ $jsBuilt := $jsSrc | js.Build (dict "minify" hugo.IsProduction) }}
+  {{ $js := resources.FromString (printf "assets/app.%s.js" (substr (md5 $jsSrc.Content) 0 10)) $jsBuilt.Content }}
+  <script src="{{ $js.RelPermalink }}" integrity="{{ ($js | fingerprint).Data.Integrity }}" defer></script>
+  {{ if .Store.Get "hasMermaid" }}
+    {{ partial "mermaid.html" . }}
+  {{ end }}
+</body>
+</html>

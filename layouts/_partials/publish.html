@@ -1,0 +1,11 @@
+{{- /*
+  Republishes a resource under a neutral, content-hashed name, e.g. img/avatar.3f9c2a1b5e.webp
+  or assets/style.8d0e4c7a91.css, instead of the build tool's default naming.
+  Context: dict "res" (resource), "dir" (output folder), "name" (base name),
+           "key" (string identifying the inputs: source content plus processing options).
+  The hash comes from "key" rather than the processed output, because reading a processed
+  resource's content would also publish it under its default name.
+*/ -}}
+{{- $hash := substr (md5 .key) 0 10 -}}
+{{- $out := resources.Copy (printf "%s/%s.%s%s" .dir .name $hash .ext) .res -}}
+{{- return $out -}}

@@ -1,0 +1,36 @@
+{{ define "main" }}
+{{ $parent := .Parent | default site.Home }}
+{{ $back := dict "url" $parent.RelPermalink "label" (printf "All %s" ($parent.Title | lower)) }}
+{{ $meta := "" }}
+{{ if eq .Section "blog" }}
+  {{ $meta = printf "%s • %d min read" (.Date.Format "January 2, 2006") .ReadingTime }}
+{{ end }}
+
+{{ partial "sticky-nav.html" (merge $back (dict "title" .Title "subtitle" $meta)) }}
+
+<main class="page page--post">
+  <header class="page-header" data-sticky-trigger>
+    {{ partial "back-link.html" $back }}
+    <div class="page-heading">
+      <h1 class="page-title">{{ .Title }}</h1>
+      {{ if $meta }}
+        <p class="post-meta">
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time> • {{ .ReadingTime }} min read
+        </p>
+      {{ end }}
+    </div>
+  </header>
+
+  {{ with partial "hero-image.html" . }}
+    <img class="hero" src="{{ .RelPermalink }}" {{ if ne .MediaType.SubType "svg" }}width="{{ .Width }}" height="{{ .Height }}"{{ end }} alt="">
+  {{ end }}
+
+  <article class="prose">
+    {{ .Content }}
+  </article>
+
+  {{ if eq .Section "blog" }}
+    {{ partial "post-footer.html" . }}
+  {{ end }}
+</main>
+{{ end }}

@@ -1,0 +1,6 @@
+{{- /* Cycles system -> light -> dark. Which icon shows is driven by html[data-theme-pref] in CSS. */ -}}
+<button type="button" class="theme-toggle" aria-label="Change theme" data-theme-toggle>
+  <span class="theme-icon theme-icon--system">{{ partial "icon.html" (dict "name" "device-desktop" "size" 18) }}</span>
+  <span class="theme-icon theme-icon--light">{{ partial "icon.html" (dict "name" "sun" "size" 18) }}</span>
+  <span class="theme-icon theme-icon--dark">{{ partial "icon.html" (dict "name" "moon" "size" 18) }}</span>
+</button>
