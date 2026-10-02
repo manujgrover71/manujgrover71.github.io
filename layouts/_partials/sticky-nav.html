@@ -1,0 +1,13 @@
+{{- /*
+  Compact bar that slides in at the top once the page header has scrolled away (see main.js).
+  Context: dict "url" "label" (back link), "title", "subtitle".
+*/ -}}
+<nav class="sticky-nav" data-sticky-nav aria-label="Page" inert>
+  <div class="sticky-nav-inner">
+    {{ partial "back-link.html" (dict "url" .url "label" .label) }}
+    <div class="sticky-nav-text">
+      <p class="sticky-nav-title">{{ .title }}</p>
+      {{ with .subtitle }}<p class="sticky-nav-subtitle">{{ . }}</p>{{ end }}
+    </div>
+  </div>
+</nav>

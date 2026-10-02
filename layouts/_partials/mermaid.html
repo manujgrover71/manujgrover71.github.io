@@ -1,0 +1,20 @@
+{{- /* Loaded only on pages with a ```mermaid block (see _markup/render-codeblock-mermaid.html). Re-renders on theme change. */ -}}
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+
+  const diagrams = [...document.querySelectorAll("pre.mermaid")];
+  diagrams.forEach((el) => (el.dataset.source = el.textContent));
+
+  async function render() {
+    const dark = document.documentElement.dataset.theme === "dark";
+    mermaid.initialize({ startOnLoad: false, theme: dark ? "dark" : "neutral", fontFamily: "Inter, sans-serif" });
+    diagrams.forEach((el) => {
+      el.removeAttribute("data-processed");
+      el.textContent = el.dataset.source;
+    });
+    await mermaid.run({ nodes: diagrams });
+  }
+
+  render();
+  document.addEventListener("themechange", render);
+</script>

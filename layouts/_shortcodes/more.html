@@ -1,0 +1,20 @@
+{{- /*
+  Inline [?] toggle that reveals its text in place.
+  Usage: on stage{{< more label="Talks" >}} — at FOSS United Delhi{{< /more >}}, and ...
+  Params: label (accessible name), confetti=true (burst on first open),
+          photos="images/a.jpg,images/b.jpg" (assets/ paths, fanned out when open)
+*/ -}}
+{{- $id := printf "more-%d" .Ordinal -}}
+{{- $photos := slice -}}
+{{- with .Get "photos" -}}
+  {{- range split . "," -}}
+    {{- with resources.Get (strings.TrimSpace .) }}{{ $photos = $photos | append (partial "publish.html" (dict "res" (.Fit "240x240 webp") "dir" "img" "name" "photo" "ext" ".webp" "key" (printf "%s|Fit 240x240 webp" (md5 .Content)))) }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+<button type="button" class="more-toggle" aria-expanded="false" aria-controls="{{ $id }}" aria-label="{{ .Get "label" | default "More" }}"
+  {{- if eq (.Get "confetti") true }} data-confetti{{ end }}>[?]</button>
+{{- "" -}}
+<span class="more-content" id="{{ $id }}" hidden> {{ .Inner | .Page.RenderString }}
+  {{- with $photos }}<span class="more-photos" aria-hidden="true">{{ range . }}<img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="" loading="lazy">{{ end }}</span>{{ end -}}
+</span>
+{{- /**/ -}}

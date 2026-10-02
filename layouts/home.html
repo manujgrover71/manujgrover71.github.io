@@ -1,73 +1,91 @@
 {{ define "main" }}
-<section class="section container-fluid mt-n3 pb-3">
-  <div class="row justify-content-center">
-    <div class="col-lg-9 col-xl-8">
+{{ $p := site.Data.profile }}
+<main class="home">
+  <header class="profile">
+    {{ with resources.Get $p.avatar }}
+      {{ $img := partial "publish.html" (dict "res" (.Fill "160x160 webp") "dir" "img" "name" "avatar" "ext" ".webp" "key" (printf "%s|Fill 160x160 webp" (md5 .Content))) }}
+      {{ with and $p.avatarAlt (resources.Get $p.avatarAlt) }}
+        {{/* Click to swap: the other face is revealed by a circle growing from the centre (main.js). */}}
+        {{ $alt := partial "publish.html" (dict "res" (.Fill "160x160 webp") "dir" "img" "name" "avatar-alt" "ext" ".webp" "key" (printf "%s|Fill 160x160 webp" (md5 .Content))) }}
+        <button type="button" class="avatar avatar--swap" data-avatar-swap aria-label="{{ $p.name }}: show the other picture">
+          <img class="avatar-face is-front" src="{{ $img.RelPermalink }}" width="80" height="80" alt="">
+          <img class="avatar-face" src="{{ $alt.RelPermalink }}" width="80" height="80" alt="">
+        </button>
+      {{ else }}
+        <img class="avatar" src="{{ $img.RelPermalink }}" width="80" height="80" alt="{{ $p.name }}">
+      {{ end }}
+    {{ else }}
+      <span class="avatar avatar--initials" aria-hidden="true">{{ range split $p.name " " }}{{ substr . 0 1 }}{{ end }}</span>
+    {{ end }}
+    <h1 class="name">{{ $p.name }}</h1>
+    <p class="role">{{ $p.role }}</p>
+  </header>
 
-      <!-- Terminal Window -->
-      <div class="terminal-window shadow mb-4">
-        <div class="terminal-bar">
-          <span class="dot bg-danger"></span>
-          <span class="dot bg-warning"></span>
-          <span class="dot bg-success"></span>
-          <span class="title">~/blog $ ls -l</span>
-        </div>
-
-        <div class="terminal-body">
-          <pre>
-$ cat latest-posts.log
-{{ range first 10 (where .Site.RegularPages "Section" "blog") -}}
-[{{ .Date.Format "2006-01-02" }}] > <a href="{{ .RelPermalink }}" class="terminal-link">{{ .Title }}</a> ({{ .ReadingTime }} min read)
-{{ end }}
-          </pre>
-        </div>
-      </div>
-
-    </div>
+  <div class="bio">
+    {{ .Content }}
   </div>
-</section>
 
-<style>
-.terminal-window {
-  background: var(--bs-dark);
-  border-radius: .5rem;
-  overflow: hidden;
-  font-family: var(--bs-font-monospace);
-  color: var(--bs-light);
-}
-.terminal-bar {
-  background: var(--bs-gray-900);
-  padding: .5rem .75rem;
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-}
-.terminal-bar .dot {
-  height: 12px;
-  width: 12px;
-  border-radius: 50%;
-  display: inline-block;
-}
-.terminal-bar .title {
-  margin-left: auto;
-  font-size: .85rem;
-  color: var(--bs-gray-400);
-}
-.terminal-body {
-  padding: 1rem;
-}
-.terminal-body pre {
-  margin: 0;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  font-size: .95rem;
-}
-.terminal-link {
-  color: var(--bs-primary);
-  text-decoration: none;
-}
-.terminal-link:hover {
-  color: var(--bs-info);
-  text-decoration: underline;
-}
-</style>
+  {{ with $p.socials }}
+    <ul class="socials">
+      {{ range . }}
+        <li><a href="{{ .url }}" target="_blank" rel="noopener" aria-label="{{ .name }}">{{ partial "icon.html" (dict "name" .icon "size" 14) }}</a></li>
+      {{ end }}
+    </ul>
+  {{ end }}
+
+  <div class="pills">
+    {{ with $p.email }}
+      <a class="pill pill--outline pill--copy" href="mailto:{{ . }}" data-copy="{{ . }}" data-tick>
+        <span class="pill-copy-label">Copy email</span>
+        <span class="pill-copy-done" aria-live="polite">{{ partial "icon.html" (dict "name" "check" "size" 13) }}Copied</span>
+      </a>
+    {{ end }}
+    {{ with $p.call }}
+      <a class="pill pill--solid pill--call" href="{{ . }}" target="_blank" rel="noopener">
+        <span class="pill-call-icon">{{ partial "icon.html" (dict "name" "phone" "size" 13) }}</span>Book a call
+      </a>
+    {{ end }}
+  </div>
+
+  {{ with $p.work }}
+    <section class="section">
+      <h2 class="section-label">Work</h2>
+      <ul class="work">
+        {{ range $i, $w := . }}
+          {{ $id := printf "work-%d" $i }}
+          <li class="work-item">
+            <div class="work-row">
+              <span class="work-dates">{{ .from }} — {{ .to }}</span>
+              <span class="work-leader" aria-hidden="true"></span>
+              <span class="work-role">
+                {{- .role -}}
+                {{- with .highlights }}<button type="button" class="work-toggle" aria-expanded="false" aria-controls="{{ $id }}" aria-label="{{ $w.role }} highlights"><span class="work-toggle-closed">[+]</span><span class="work-toggle-open">[−]</span></button>{{ end }}
+                at
+                {{ if .url }}<a class="work-company" href="{{ .url }}" target="_blank" rel="noopener">{{ .company }}{{ partial "icon.html" (dict "name" "arrow-up-right" "size" 12) }}</a>
+                {{ else }}<span class="work-company">{{ .company }}</span>{{ end }}
+              </span>
+            </div>
+            {{ with .highlights }}
+              <div class="work-details" id="{{ $id }}" inert>
+                <ul class="work-highlights">
+                  {{ range . }}<li>{{ . | $.Page.RenderString }}</li>{{ end }}
+                </ul>
+              </div>
+            {{ end }}
+          </li>
+        {{ end }}
+      </ul>
+    </section>
+  {{ end }}
+
+  {{ with site.GetPage "/blog" }}
+    {{ $posts := .RegularPages.ByDate.Reverse }}
+    {{ if $posts }}
+      <section class="section">
+        <h2 class="section-label">{{ .Title }}</h2>
+        {{ partial "post-list.html" (dict "pages" (first 3 $posts) "meta" false "more" (dict "url" .RelPermalink "label" "View all posts")) }}
+      </section>
+    {{ end }}
+  {{ end }}
+</main>
 {{ end }}

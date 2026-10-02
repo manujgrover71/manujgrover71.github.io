@@ -1,0 +1,25 @@
+{{- /*
+  Resolves relative image paths against the post's folder first, then assets/,
+  so both ![](diagram.png) and the older ![](images/x/diagram.png) work.
+  A standalone image becomes a <figure>; its title becomes the caption.
+*/ -}}
+{{- $u := urls.Parse .Destination -}}
+{{- $src := .Destination -}}
+{{- $w := 0 }}{{ $h := 0 -}}
+{{- if not $u.IsAbs -}}
+  {{- with or (.PageInner.Resources.Get $u.Path) (resources.Get $u.Path) -}}
+    {{- $src = .RelPermalink -}}
+    {{- if and (eq .MediaType.MainType "image") (ne .MediaType.SubType "svg") }}{{ $w = .Width }}{{ $h = .Height }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+{{- $img := printf `<img src="%s" alt="%s"%s loading="lazy" decoding="async">`
+  $src (.PlainText | htmlEscape)
+  (cond (gt $w 0) (printf ` width="%d" height="%d"` $w $h) "") -}}
+{{- if .IsBlock -}}
+  <figure class="figure">
+    {{ $img | safeHTML }}
+    {{- with .Title }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
+  </figure>
+{{- else -}}
+  {{ $img | safeHTML }}
+{{- end -}}

@@ -1,0 +1,10 @@
+{{- /* Inline SVG icon from assets/icons. Usage: partial "icon.html" (dict "name" "rss" "size" 14) */ -}}
+{{- $size := .size | default 16 -}}
+{{- with resources.Get (printf "icons/%s.svg" .name) -}}
+  {{- $svg := .Content -}}
+  {{- $svg = replaceRE `\s(width|height|class)="[^"]*"` "" $svg -}}
+  {{- $svg = replace $svg "<svg" (printf `<svg width="%d" height="%d" class="icon" aria-hidden="true" focusable="false"` $size $size) -}}
+  {{- $svg | safeHTML -}}
+{{- else -}}
+  {{- errorf "icon %q not found in assets/icons" .name -}}
+{{- end -}}

@@ -1,0 +1,21 @@
+{{ define "main" }}
+{{ $back := dict "url" site.Home.RelPermalink "label" "Home" }}
+{{ $subtitle := .Description | default site.Params.description }}
+
+{{ partial "sticky-nav.html" (merge $back (dict "title" .Title "subtitle" $subtitle)) }}
+
+<main class="page page--list">
+  <header class="page-header" data-sticky-trigger>
+    {{ partial "back-link.html" $back }}
+    <div class="page-heading">
+      <h1 class="page-title">{{ .Title }}</h1>
+      <p class="page-subtitle">{{ $subtitle }}</p>
+    </div>
+    {{ with .OutputFormats.Get "rss" }}
+      <a class="rss-link" href="{{ .RelPermalink }}">{{ partial "icon.html" (dict "name" "rss" "size" 12) }}RSS</a>
+    {{ end }}
+  </header>
+
+  {{ partial "post-list.html" (dict "pages" .RegularPages.ByDate.Reverse "meta" true) }}
+</main>
+{{ end }}

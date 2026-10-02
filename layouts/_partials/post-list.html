@@ -1,0 +1,29 @@
+{{- /*
+  Writing list. Context: dict "pages" (newest first), "meta" (bool: show the date line),
+  and optional "more" (dict "url" "label") for a trailing "View all" row.
+  The newest post gets a NEW badge; posts with externalUrl link out and show their source.
+  Hovering a row floats it and dims the rest (see "Hover focus" in main.css).
+*/ -}}
+<ul class="posts{{ if not .meta }} posts--compact{{ end }}">
+  {{- range $i, $p := .pages }}
+    {{- $external := $p.Params.externalUrl }}
+    <li class="post-item">
+      <a class="post-link" href="{{ or $external $p.RelPermalink }}"{{ if $external }} target="_blank" rel="noopener"{{ end }}>
+        <span class="post-title">{{ $p.Title }}</span>
+        {{- if eq $i 0 }}<span class="badge">New</span>{{ end }}
+        {{- with and $external ($p.Params.source | default "External") }}<span class="source">{{ . }}{{ partial "icon.html" (dict "name" "arrow-up-right" "size" 11) }}</span>{{ end }}
+      </a>
+      {{- if $.meta }}
+        <p class="post-meta">
+          <time datetime="{{ $p.Date.Format "2006-01-02" }}">{{ $p.Date.Format "January 2, 2006" }}</time>
+          {{- if not $external }} • {{ $p.ReadingTime }} min read{{ end }}
+        </p>
+      {{- end }}
+    </li>
+  {{- end }}
+  {{- with .more }}
+    <li class="post-item post-item--more">
+      <a class="view-all" href="{{ .url }}">{{ .label }}{{ partial "icon.html" (dict "name" "arrow-up-right" "size" 12) }}</a>
+    </li>
+  {{- end }}
+</ul>

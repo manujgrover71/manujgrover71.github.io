@@ -1,0 +1,7 @@
+{{- /* ASCII diagrams (```goat). Like the built-in renderer, plus width/height so small diagrams don't stretch to full width. */ -}}
+{{- $d := diagrams.Goat .Inner -}}
+<div class="ascii-diagram">
+  <svg xmlns="http://www.w3.org/2000/svg" font-family="Menlo,Lucida Console,monospace" viewBox="0 0 {{ $d.Width }} {{ $d.Height }}" width="{{ $d.Width }}" height="{{ $d.Height }}">
+    {{ $d.Inner }}
+  </svg>
+</div>

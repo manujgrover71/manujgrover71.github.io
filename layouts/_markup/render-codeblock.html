@@ -1,0 +1,21 @@
+{{- /* Fenced code. Supports {title="file.go" lineNos=true hl_lines=[3,"5-7"]} after the language. */ -}}
+{{- $title := .Attributes.title -}}
+{{- $html := (transform.HighlightCodeBlock .).Wrapped | string -}}
+{{- /* Neutral markup: no wrapper div or data-lang, and plain class names (styled in main.css / syntax.css). */ -}}
+{{- $html = replaceRE `^\s*<div class="highlight"[^>]*>\s*` "" $html -}}
+{{- $html = replaceRE `\s*</div>\s*$` "" $html -}}
+{{- $html = replaceRE ` data-lang="[^"]*"` "" $html -}}
+{{- $html = replace $html `class="chroma"` `class="syntax"` -}}
+{{- $html = replace $html `class="line hl"` `class="row mark"` -}}
+{{- $html = replace $html `class="line"` `class="row"` -}}
+{{- $html = replace $html `class="cl"` `class="src"` -}}
+{{- $html = replace $html `class="ln"` `class="num"` -}}
+<figure class="code">
+  <figcaption class="code-header">
+    <span class="code-title">{{ $title | default .Type }}</span>
+    <button type="button" class="code-copy" data-copy-code>
+      <span class="code-copy-label">Copy</span><span class="code-copy-label code-copy-label--done">Copied</span>
+    </button>
+  </figcaption>
+  {{ $html | safeHTML }}
+</figure>
