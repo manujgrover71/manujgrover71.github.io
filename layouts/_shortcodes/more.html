@@ -14,7 +14,8 @@
 <button type="button" class="more-toggle" aria-expanded="false" aria-controls="{{ $id }}" aria-label="{{ .Get "label" | default "More" }}"
   {{- if eq (.Get "confetti") true }} data-confetti{{ end }}>[?]</button>
 {{- "" -}}
-<span class="more-content" id="{{ $id }}" hidden> {{ .Inner | .Page.RenderString }}
+{{- /* A leading "- " would render as a Markdown list item; escape it so it stays a plain dash. */ -}}
+<span class="more-content" id="{{ $id }}" hidden> {{ replaceRE `^(\s*)([-+*])(\s)` `$1\$2$3` .Inner | .Page.RenderString }}
   {{- with $photos }}<span class="more-photos" aria-hidden="true">{{ range . }}<img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="" loading="lazy">{{ end }}</span>{{ end -}}
 </span>
 {{- /**/ -}}
