@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" width="880" height="300" role="img" aria-labelledby="t d"><title id="t">Pool size against where requests wait</title><desc id="d">As maxPoolSize grows from 2 to 64 at the same traffic, server-side p99 rises from 15 ms to 315 ms and the ticket queue from 0 to 54. Mean of two runs.</desc>
+<rect width="880" height="300" fill="#f4f5f5"/>
+<rect x="8" y="8" width="428" height="284" rx="2" fill="#ffffff" stroke="#e4e7e7" stroke-width="1"/>
+<text x="20.0" y="30.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" font-weight="500" fill="#24292e" text-anchor="start">Server time p99</text>
+<line x1="63.6" y1="226.0" x2="422.0" y2="226.0" stroke="#ebedef" stroke-width="1"/>
+<text x="55.6" y="230.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#6e7680" text-anchor="end">0 ms</text>
+<line x1="63.6" y1="181.5" x2="422.0" y2="181.5" stroke="#ebedef" stroke-width="1"/>
+<text x="55.6" y="185.5" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#6e7680" text-anchor="end">100 ms</text>
+<line x1="63.6" y1="137.0" x2="422.0" y2="137.0" stroke="#ebedef" stroke-width="1"/>
+<text x="55.6" y="141.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#6e7680" text-anchor="end">200 ms</text>
+<line x1="63.6" y1="92.5" x2="422.0" y2="92.5" stroke="#ebedef" stroke-width="1"/>
+<text x="55.6" y="96.5" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#6e7680" text-anchor="end">300 ms</text>
+<line x1="63.6" y1="48.0" x2="422.0" y2="48.0" stroke="#ebedef" stroke-width="1"/>
+<text x="55.6" y="52.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#6e7680" text-anchor="end">400 ms</text>
+<rect x="72.6" y="219.3" width="41.8" height="6.7" fill="#3274d9" fill-opacity="0.8" stroke="#3274d9" stroke-width="1"/>
+<text x="93.5" y="213.3" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#24292e" text-anchor="middle">15 ms</text>
+<text x="93.5" y="242.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#6e7680" text-anchor="middle">2</text>
+<rect x="132.3" y="215.6" width="41.8" height="10.4" fill="#3274d9" fill-opacity="0.8" stroke="#3274d9" stroke-width="1"/>
+<text x="153.2" y="209.6" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#24292e" text-anchor="middle">23 ms</text>
+<text x="153.2" y="242.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#6e7680" text-anchor="middle">4</text>
+<rect x="192.0" y="201.8" width="41.8" height="24.2" fill="#3274d9" fill-opacity="0.8" stroke="#3274d9" stroke-width="1"/>
+<text x="212.9" y="195.8" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#24292e" text-anchor="middle">54 ms</text>
+<text x="212.9" y="242.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#6e7680" text-anchor="middle">8</text>
+<rect x="251.8" y="181.8" width="41.8" height="44.2" fill="#3274d9" fill-opacity="0.8" stroke="#3274d9" stroke-width="1"/>
+<text x="272.7" y="175.8" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#24292e" text-anchor="middle">99 ms</text>
+<text x="272.7" y="242.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#6e7680" text-anchor="middle">16</text>
+<rect x="311.5" y="127.7" width="41.8" height="98.3" fill="#3274d9" fill-opacity="0.8" stroke="#3274d9" stroke-width="1"/>
+<text x="332.4" y="121.7" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#24292e" text-anchor="middle">221 ms</text>
+<text x="332.4" y="242.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#6e7680" text-anchor="middle">32</text>
+<rect x="371.2" y="86.0" width="41.8" height="140.0" fill="#3274d9" fill-opacity="0.8" stroke="#3274d9" stroke-width="1"/>
+<text x="392.1" y="80.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#24292e" text-anchor="middle">315 ms</text>
+<text x="392.1" y="242.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#6e7680" text-anchor="middle">64</text>
+<text x="242.8" y="260.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#6e7680" text-anchor="middle">maxPoolSize</text>
+<rect x="63.6" y="270.0" width="14" height="4" rx="1" fill="#3274d9"/>
+<text x="83.6" y="276.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#24292e" text-anchor="start">server time p99</text>
+<rect x="444" y="8" width="428" height="284" rx="2" fill="#ffffff" stroke="#e4e7e7" stroke-width="1"/>
+<text x="456.0" y="30.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" font-weight="500" fill="#24292e" text-anchor="start">Requests waiting for a ticket</text>
+<line x1="473.2" y1="226.0" x2="858.0" y2="226.0" stroke="#ebedef" stroke-width="1"/>
+<text x="465.2" y="230.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#6e7680" text-anchor="end">0</text>
+<line x1="473.2" y1="181.5" x2="858.0" y2="181.5" stroke="#ebedef" stroke-width="1"/>
+<text x="465.2" y="185.5" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#6e7680" text-anchor="end">20</text>
+<line x1="473.2" y1="137.0" x2="858.0" y2="137.0" stroke="#ebedef" stroke-width="1"/>
+<text x="465.2" y="141.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#6e7680" text-anchor="end">40</text>
+<line x1="473.2" y1="92.5" x2="858.0" y2="92.5" stroke="#ebedef" stroke-width="1"/>
+<text x="465.2" y="96.5" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#6e7680" text-anchor="end">60</text>
+<line x1="473.2" y1="48.0" x2="858.0" y2="48.0" stroke="#ebedef" stroke-width="1"/>
+<text x="465.2" y="52.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#6e7680" text-anchor="end">80</text>
+<rect x="482.8" y="226.0" width="44.9" height="0.0" fill="#3274d9" fill-opacity="0.8" stroke="#3274d9" stroke-width="1"/>
+<text x="505.3" y="220.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#24292e" text-anchor="middle">0</text>
+<text x="505.3" y="242.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#6e7680" text-anchor="middle">2</text>
+<rect x="547.0" y="226.0" width="44.9" height="0.0" fill="#3274d9" fill-opacity="0.8" stroke="#3274d9" stroke-width="1"/>
+<text x="569.4" y="220.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#24292e" text-anchor="middle">0</text>
+<text x="569.4" y="242.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#6e7680" text-anchor="middle">4</text>
+<rect x="611.1" y="221.6" width="44.9" height="4.4" fill="#3274d9" fill-opacity="0.8" stroke="#3274d9" stroke-width="1"/>
+<text x="633.5" y="215.6" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#24292e" text-anchor="middle">2</text>
+<text x="633.5" y="242.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#6e7680" text-anchor="middle">8</text>
+<rect x="675.2" y="202.6" width="44.9" height="23.4" fill="#3274d9" fill-opacity="0.8" stroke="#3274d9" stroke-width="1"/>
+<text x="697.7" y="196.6" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#24292e" text-anchor="middle">10</text>
+<text x="697.7" y="242.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#6e7680" text-anchor="middle">16</text>
+<rect x="739.4" y="170.4" width="44.9" height="55.6" fill="#3274d9" fill-opacity="0.8" stroke="#3274d9" stroke-width="1"/>
+<text x="761.8" y="164.4" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#24292e" text-anchor="middle">25</text>
+<text x="761.8" y="242.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#6e7680" text-anchor="middle">32</text>
+<rect x="803.5" y="105.8" width="44.9" height="120.2" fill="#3274d9" fill-opacity="0.8" stroke="#3274d9" stroke-width="1"/>
+<text x="825.9" y="99.8" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#24292e" text-anchor="middle">54</text>
+<text x="825.9" y="242.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#6e7680" text-anchor="middle">64</text>
+<text x="665.6" y="260.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#6e7680" text-anchor="middle">maxPoolSize</text>
+<rect x="473.2" y="270.0" width="14" height="4" rx="1" fill="#3274d9"/>
+<text x="493.2" y="276.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#24292e" text-anchor="start">max queue length</text>
+</svg>

@@ -1,0 +1,266 @@
+{{- $id := printf "qsim-%d" .Ordinal -}}
+<div class="qsim" id="{{ $id }}">
+  <div class="qsim-controls">
+    <label><span>Traffic</span><input type="range" data-k="traffic" min="0" max="7" value="4"><output></output></label>
+    <label><span>maxPoolSize</span><input type="range" data-k="pool" min="0" max="6" value="4"><output></output></label>
+    <label><span>Tickets</span><input type="range" data-k="tickets" min="0" max="5" value="1"><output></output></label>
+  </div>
+  <canvas class="qsim-flow" height="190"></canvas>
+  <p class="qsim-stats"></p>
+  <div class="qsim-charts">
+    <div><span class="qsim-title">Requests / s</span><canvas height="150"></canvas>
+      <span class="qsim-key"><i data-c="grey"></i>arriving <i data-c="blue"></i>done</span></div>
+    <div><span class="qsim-title">Where a request spent its time</span><canvas height="150"></canvas>
+      <span class="qsim-key"><i data-c="blue"></i>connection <i data-c="orange"></i>ticket <i data-c="grey"></i>running</span></div>
+  </div>
+  <div class="qsim-actions"><button type="button" data-a="pause">Pause</button><button type="button" data-a="reset">Reset</button>
+    <span>One client, 2 cores, 7 ms of CPU per request: about 285 a second fit.</span></div>
+</div>
+<style>
+.qsim { margin: 32px 0; padding: 20px 24px; border: 1px solid var(--border-strong); border-radius: 12px; background: var(--fill); font-size: 13px; }
+@media (max-width: 600px) { .qsim { padding: 16px; } }
+@media (min-width: 960px) { .qsim { width: 880px; margin-left: calc(50% - 440px); } }
+.qsim canvas { display: block; width: 100%; }
+.qsim-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px 24px; margin-bottom: 18px; }
+.qsim-controls label { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4px 12px; color: var(--text-2); }
+.qsim-controls input { grid-column: 1 / -1; width: 100%; accent-color: var(--text-strong); }
+.qsim-controls output, .qsim-stats, .qsim-actions, .qsim-title, .qsim-key { font-family: var(--font-mono); font-size: 11px; }
+.qsim-controls output { color: var(--text-strong); }
+.qsim-stats { margin: 20px 0 22px; color: var(--text-2); min-height: 2.4em; }
+.qsim-charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px 24px; }
+.qsim-title { display: block; margin-bottom: 6px; color: var(--text-2); text-transform: uppercase; letter-spacing: .08em; }
+.qsim-key { display: block; margin-top: 6px; color: var(--text-2); }
+.qsim-key i { display: inline-block; width: 12px; height: 3px; margin: 0 6px 2px 10px; vertical-align: middle; }
+.qsim-key i:first-child { margin-left: 0; }
+.qsim-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-top: 18px; color: var(--text-2); }
+.qsim-actions button { padding: 4px 10px; border: 1px solid var(--border-strong); border-radius: 6px; background: none; color: var(--text); font: inherit; }
+.qsim-actions button:hover { background: var(--fill-2); }
+</style>
+<script>
+(() => {
+  const root = document.getElementById("{{ $id }}");
+  const CORES = 2, WORK = 7, CAPACITY = CORES * 1000 / WORK, HISTORY = 30, MAX_QUEUE = 20000;
+  const steps = {
+    traffic: [25, 50, 75, 90, 95, 100, 110, 130],
+    pool: [1, 2, 4, 8, 16, 32, 64],
+    tickets: [5, 8, 12, 16, 32, 64],
+  };
+  const show = {
+    traffic: v => `${v}% · ${Math.round(CAPACITY * v / 100)}/s`,
+    pool: String,
+    tickets: String,
+  };
+  const cfg = {};
+  for (const input of root.querySelectorAll("input")) {
+    const k = input.dataset.k;
+    const sync = () => {
+      cfg[k] = steps[k][input.value];
+      input.nextElementSibling.textContent = show[k](cfg[k]);
+    };
+    input.addEventListener("input", sync);
+    sync();
+  }
+
+  const bucket = () => ({ arrived: 0, done: 0, cpu: 0, wait: 0, ticket: 0, work: 0 });
+  let s;
+  const reset = () => { s = { now: 0, next: 0, waitQ: [], ticketQ: [], running: [], busy: 0, hist: [], cur: bucket(), capped: false }; };
+  reset();
+
+  // One millisecond: arrivals, checkout, tickets (handed out in no order), then CPU shared
+  // by whatever holds a ticket.
+  const tick = () => {
+    s.now++;
+    const b = s.cur, rate = CAPACITY * cfg.traffic / 100;
+    while (s.next <= s.now) {
+      b.arrived++;
+      if (s.waitQ.length < MAX_QUEUE) s.waitQ.push({ t0: s.now, left: WORK });
+      else s.capped = true;
+      s.next += -Math.log(1 - Math.random()) * 1000 / rate;
+    }
+    while (s.busy < cfg.pool && s.waitQ.length) {
+      const r = s.waitQ.shift();
+      r.sent = s.now; s.busy++; s.ticketQ.push(r);
+    }
+    while (s.running.length < cfg.tickets && s.ticketQ.length) {
+      const r = s.ticketQ.splice(Math.floor(Math.random() * s.ticketQ.length), 1)[0];
+      r.admitted = s.now; s.running.push(r);
+    }
+    const n = s.running.length;
+    if (n) {
+      const share = Math.min(1, CORES / n);
+      for (const r of s.running) r.left -= share;
+      b.cpu += Math.min(n, CORES);
+    }
+    s.running = s.running.filter(r => {
+      if (r.left > 0) return true;
+      s.busy--;
+      b.done++; b.wait += r.sent - r.t0; b.ticket += r.admitted - r.sent; b.work += s.now - r.admitted;
+      return false;
+    });
+    if (s.now % 1000 === 0) {
+      s.hist.push(b); s.cur = bucket();
+      if (s.hist.length > HISTORY) s.hist.shift();
+      drawCharts(); writeStats();
+    }
+  };
+
+  const css = () => {
+    const st = getComputedStyle(document.documentElement);
+    const dark = document.documentElement.dataset.theme === "dark";
+    return {
+      text2: st.getPropertyValue("--text-2").trim(), text3: st.getPropertyValue("--text-3").trim(),
+      border: st.getPropertyValue("--border").trim(), mono: st.getPropertyValue("--font-mono").trim(),
+      blue: dark ? "#5794f2" : "#3274d9", orange: dark ? "#ff9830" : "#fa6400", grey: dark ? "#6e7380" : "#b8bcc2",
+    };
+  };
+  let C = css();
+  const paintKeys = () => root.querySelectorAll(".qsim-key i").forEach(i => { i.style.background = C[i.dataset.c]; });
+  new MutationObserver(() => { C = css(); paintKeys(); drawCharts(); drawFlow(); })
+    .observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  paintKeys();
+
+  const fit = cv => {
+    cv.dataset.h ||= cv.getAttribute("height");
+    const dpr = window.devicePixelRatio || 1, w = cv.clientWidth, h = +cv.dataset.h;
+    cv.style.height = h + "px";
+    cv.width = Math.round(w * dpr);
+    cv.height = Math.round(h * dpr);
+    const g = cv.getContext("2d");
+    g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return [g, w, h];
+  };
+
+  const flow = root.querySelector(".qsim-flow");
+  const drawFlow = () => {
+    const [g, W, H] = fit(flow);
+    const gap = W * 0.02;
+    let x = 0;
+    const box = [["waiting for a connection", 0.31], ["pool", 0.21], ["waiting for a ticket", 0.21], ["running", 0.21]]
+      .map(([label, f]) => { const c = { label, x, w: f * W }; x += c.w + gap; return c; });
+    g.font = `11px ${C.mono}`; g.textBaseline = "top";
+    let top = 22;
+    for (const c of box) {
+      c.lines = [""];
+      for (const word of c.label.toUpperCase().split(" ")) {
+        const line = c.lines[c.lines.length - 1], next = line ? `${line} ${word}` : word;
+        if (line && g.measureText(next).width > c.w - 8) c.lines.push(word);
+        else c.lines[c.lines.length - 1] = next;
+      }
+      top = Math.max(top, 8 + c.lines.length * 14);
+    }
+    box.forEach((c, i) => {
+      g.fillStyle = C.text2;
+      c.lines.forEach((l, j) => g.fillText(l, c.x, j * 14));
+      if (i < box.length - 1) {
+        const ax = c.x + c.w + gap * 0.15, ay = top + 8, aw = gap * 0.7;
+        g.strokeStyle = C.text3; g.lineWidth = 1; g.beginPath();
+        g.moveTo(ax, ay); g.lineTo(ax + aw, ay); g.lineTo(ax + aw - 4, ay - 3);
+        g.moveTo(ax + aw, ay); g.lineTo(ax + aw - 4, ay + 3); g.stroke();
+      }
+    });
+    const bottom = H - 22;
+    const dots = (c, count) => {
+      const step = 9, per = Math.max(1, Math.floor(c.w / step)), rows = Math.floor((bottom - top) / step);
+      g.fillStyle = C.text2;
+      for (let i = 0; i < Math.min(count, per * rows); i++) {
+        g.beginPath(); g.arc(c.x + 4 + (i % per) * step, top + 4 + Math.floor(i / per) * step, 3, 0, Math.PI * 2); g.fill();
+      }
+    };
+    const slots = (c, total, used) => {
+      const size = total > 16 ? 10 : 16, step = size + 4, per = Math.max(1, Math.floor(c.w / step));
+      for (let i = 0; i < total; i++) {
+        const sx = c.x + (i % per) * step, sy = top + Math.floor(i / per) * step;
+        if (i < used) { g.fillStyle = C.blue; g.fillRect(sx, sy, size, size); }
+        else { g.strokeStyle = C.border; g.lineWidth = 1; g.strokeRect(sx + 0.5, sy + 0.5, size - 1, size - 1); }
+      }
+    };
+    dots(box[0], s.waitQ.length);
+    slots(box[1], Math.max(cfg.pool, s.busy), s.busy);
+    dots(box[2], s.ticketQ.length);
+    slots(box[3], Math.max(cfg.tickets, s.running.length), s.running.length);
+    const labels = [`${s.waitQ.length.toLocaleString()} goroutines asleep`, `${s.busy} of ${cfg.pool} in use`,
+      `${s.ticketQ.length} threads asleep`, `${s.running.length} of ${cfg.tickets} tickets`];
+    g.textBaseline = "bottom"; g.fillStyle = C.text2;
+    box.forEach((c, i) => g.fillText(labels[i], c.x, H - 4));
+  };
+
+  const [cvRate, cvTime] = root.querySelectorAll(".qsim-charts canvas");
+  // fmt(value, top) labels the y axis; the left margin is sized to the widest label.
+  const chart = (cv, series, stacked, fmt) => {
+    const [g, W, H] = fit(cv);
+    const vals = s.hist.map(h => series.map(f => f.v(h)));
+    let top = Math.max(1, ...vals.map(v => (stacked ? v.reduce((a, b) => a + b, 0) : Math.max(...v))));
+    const mag = 10 ** Math.floor(Math.log10(top));
+    const step = [1, 2, 2.5, 5, 10].map(m => m * mag).find(m => top / m <= 4);
+    top = Math.ceil(top / step) * step;
+    const ticks = [];
+    for (let v = 0; v <= top + 1e-9; v += step) ticks.push([v, fmt(v, top)]);
+    g.font = `11px ${C.mono}`;
+    const pad = { l: 12 + Math.max(...ticks.map(([, l]) => g.measureText(l).width)), r: 6, t: 6, b: 18 };
+    const X = i => pad.l + (W - pad.l - pad.r) * i / (HISTORY - 1);
+    const Y = v => H - pad.b - (H - pad.t - pad.b) * v / top;
+    g.textBaseline = "middle"; g.textAlign = "right";
+    for (const [v, label] of ticks) {
+      const y = Math.round(Y(v)) + 0.5;
+      g.strokeStyle = C.border; g.lineWidth = 1;
+      g.beginPath(); g.moveTo(pad.l, y); g.lineTo(W - pad.r, y); g.stroke();
+      g.fillStyle = C.text2; g.fillText(label, pad.l - 6, Y(v));
+    }
+    g.textAlign = "left"; g.textBaseline = "top";
+    g.fillText(`last ${HISTORY} s`, pad.l, H - 12);
+    if (vals.length < 2) return;
+    const base = vals.map(() => 0);
+    series.forEach((f, k) => {
+      if (stacked) {
+        const lo = base.slice(), hi = vals.map((v, i) => (base[i] += v[k]));
+        g.fillStyle = C[f.c]; g.globalAlpha = 0.8; g.beginPath();
+        hi.forEach((y, i) => g.lineTo(X(i), Y(y)));
+        for (let i = lo.length - 1; i >= 0; i--) g.lineTo(X(i), Y(lo[i]));
+        g.fill(); g.globalAlpha = 1;
+      } else {
+        g.strokeStyle = C[f.c]; g.lineWidth = 1.5; g.beginPath();
+        vals.forEach((v, i) => (i ? g.lineTo(X(i), Y(v[k])) : g.moveTo(X(i), Y(v[k]))));
+        g.stroke();
+      }
+    });
+  };
+  const avg = (h, k) => (h.done ? h[k] / h.done : 0);
+  const duration = (v, top) => (top >= 1000 ? `${+(v / 1000).toFixed(2)} s` : `${+v.toFixed(1)} ms`);
+  const drawCharts = () => {
+    chart(cvRate, [{ c: "grey", v: h => h.arrived }, { c: "blue", v: h => h.done }], false, v => `${v}`);
+    chart(cvTime, [{ c: "blue", v: h => avg(h, "wait") }, { c: "orange", v: h => avg(h, "ticket") },
+      { c: "grey", v: h => avg(h, "work") }], true, duration);
+  };
+
+  const stats = root.querySelector(".qsim-stats");
+  const writeStats = () => {
+    const h = s.hist[s.hist.length - 1];
+    if (!h) { stats.textContent = ""; return; }
+    const ms = v => (v >= 1000 ? `${(v / 1000).toFixed(1)} s` : `${Math.round(v)} ms`);
+    stats.textContent =
+      `${h.done} done/s of ${h.arrived} arriving · CPU ${Math.round(h.cpu / (CORES * 10))}% · ` +
+      `a request waited ${ms(avg(h, "wait"))} for a connection and ${ms(avg(h, "ticket"))} for a ticket, ` +
+      `then ran for ${ms(avg(h, "work"))}` +
+      (s.capped ? ` · the driver queue stops at ${MAX_QUEUE.toLocaleString()} here` : "");
+  };
+
+  let paused = false, visible = false, last = 0;
+  const frame = t => {
+    if (!paused && visible) {
+      const dt = Math.min(100, t - (last || t));
+      for (let i = 0; i < Math.round(dt); i++) tick();
+      drawFlow();
+    }
+    last = t;
+    requestAnimationFrame(frame);
+  };
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; last = 0; }).observe(root);
+  root.querySelector('[data-a="pause"]').addEventListener("click", e => {
+    paused = !paused; e.target.textContent = paused ? "Resume" : "Pause";
+  });
+  root.querySelector('[data-a="reset"]').addEventListener("click", () => { reset(); drawCharts(); writeStats(); drawFlow(); });
+  window.addEventListener("resize", () => { drawFlow(); drawCharts(); });
+  drawCharts(); drawFlow();
+  requestAnimationFrame(frame);
+})();
+</script>
