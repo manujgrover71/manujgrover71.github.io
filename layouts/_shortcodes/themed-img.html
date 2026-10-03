@@ -1,5 +1,18 @@
 {{- $light := .Get "light" -}}
 {{- $dark := .Get "dark" -}}
 {{- $alt := .Get "alt" | default "" -}}
+{{- $caption := .Get "caption" -}}
+{{- $num := .Get "num" -}}
+{{- $wide := .Get "wide" -}}
+{{- if or $caption $wide -}}
+<figure class="figure figure--themed{{ if $wide }} figure--wide{{ end }}">
 <img class="themed-img themed-img--light" src="{{ $light }}" alt="{{ $alt }}" loading="lazy" decoding="async">
 <img class="themed-img themed-img--dark" src="{{ $dark }}" alt="{{ $alt }}" loading="lazy" decoding="async">
+{{- with $caption }}
+<figcaption>{{ with $num }}<span class="fig-num">Fig. {{ . }}</span>{{ end }}{{ $caption | markdownify }}</figcaption>
+{{- end }}
+</figure>
+{{- else -}}
+<img class="themed-img themed-img--light" src="{{ $light }}" alt="{{ $alt }}" loading="lazy" decoding="async">
+<img class="themed-img themed-img--dark" src="{{ $dark }}" alt="{{ $alt }}" loading="lazy" decoding="async">
+{{- end -}}
