@@ -1187,6 +1187,46 @@ a.work-company:hover {
   display: block;
 }
 
+/* Captioned figures from themed-img; "wide" breaks out of the text column on large screens */
+.figure--themed .themed-img {
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 0;
+}
+
+.figure--themed .themed-img--dark,
+[data-theme="dark"] .figure--themed .themed-img--light {
+  display: none;
+}
+
+[data-theme="dark"] .figure--themed .themed-img--dark {
+  display: block;
+}
+
+@media (min-width: 960px) {
+  .figure--wide {
+    width: 880px;
+    margin-left: calc(50% - 440px);
+  }
+}
+
+.figure--themed figcaption {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--text);
+  text-align: left;
+}
+
+.fig-num {
+  margin-right: 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
 /* Inline code */
 .prose :not(pre) > code {
   padding: 0.15em 0.4em;
