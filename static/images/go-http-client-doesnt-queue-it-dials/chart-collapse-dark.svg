@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" role="img" aria-labelledby="t d"><title id="t">Default transport against 128 idle per host at 3,200 requests a second</title><desc id="d">A caller limited to one CPU sends 3,200 requests a second for 20 seconds to a server that takes 20 ms. With DefaultTransport, in-flight requests and open connections run away after about eight seconds and the caller stays throttled; the empty stretch is where it was too throttled to record samples. With 128 idle per host, nothing moves. One run of each.</desc>
+<rect width="880" height="520" fill="#111217"/>
+<rect x="8" y="8" width="864" height="250" rx="2" fill="#181b1f" stroke="#2c3235" stroke-width="1"/>
+<text x="20.0" y="30.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" font-weight="500" fill="#ccccdc" text-anchor="start">Requests in flight · 3,200 requests / s</text>
+<line x1="50.4" y1="210.0" x2="858.0" y2="210.0" stroke="#26292f" stroke-width="1"/>
+<text x="42.4" y="214.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="end">0</text>
+<line x1="50.4" y1="169.5" x2="858.0" y2="169.5" stroke="#26292f" stroke-width="1"/>
+<text x="42.4" y="173.5" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="end">5 K</text>
+<line x1="50.4" y1="129.0" x2="858.0" y2="129.0" stroke="#26292f" stroke-width="1"/>
+<text x="42.4" y="133.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="end">10 K</text>
+<line x1="50.4" y1="88.5" x2="858.0" y2="88.5" stroke="#26292f" stroke-width="1"/>
+<text x="42.4" y="92.5" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="end">15 K</text>
+<line x1="50.4" y1="48.0" x2="858.0" y2="48.0" stroke="#26292f" stroke-width="1"/>
+<text x="42.4" y="52.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="end">20 K</text>
+<line x1="62.5" y1="48.0" x2="62.5" y2="210.0" stroke="#26292f" stroke-width="1"/>
+<text x="62.5" y="226.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="middle">18:36:10</text>
+<line x1="183.0" y1="48.0" x2="183.0" y2="210.0" stroke="#26292f" stroke-width="1"/>
+<text x="183.0" y="226.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="middle">18:36:20</text>
+<line x1="303.5" y1="48.0" x2="303.5" y2="210.0" stroke="#26292f" stroke-width="1"/>
+<text x="303.5" y="226.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="middle">18:36:30</text>
+<line x1="424.1" y1="48.0" x2="424.1" y2="210.0" stroke="#26292f" stroke-width="1"/>
+<text x="424.1" y="226.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="middle">18:36:40</text>
+<line x1="544.6" y1="48.0" x2="544.6" y2="210.0" stroke="#26292f" stroke-width="1"/>
+<text x="544.6" y="226.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="middle">18:36:50</text>
+<line x1="665.1" y1="48.0" x2="665.1" y2="210.0" stroke="#26292f" stroke-width="1"/>
+<text x="665.1" y="226.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="middle">18:37:00</text>
+<line x1="785.7" y1="48.0" x2="785.7" y2="210.0" stroke="#26292f" stroke-width="1"/>
+<text x="785.7" y="226.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="middle">18:37:10</text>
+<defs><clipPath id="c1"><rect x="50.4" y="48.0" width="807.6" height="162.0"/></clipPath></defs>
+<g clip-path="url(#c1)">
+<defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#73bf69" stop-opacity="0.22"/><stop offset="1" stop-color="#73bf69" stop-opacity="0"/></linearGradient></defs>
+<path d="M62.5,209.5 L74.5,209.4 L86.6,209.4 L98.6,209.4 L110.7,209.5 L122.7,209.5 L134.8,209.5 L146.8,209.4 L158.9,206.4 L170.9,160.5 L195.0,84.4 L195.0,210.0 L62.5,210.0 Z" fill="url(#g2)"/>
+<path d="M62.5,209.5 L74.5,209.4 L86.6,209.4 L98.6,209.4 L110.7,209.5 L122.7,209.5 L134.8,209.5 L146.8,209.4 L158.9,206.4 L170.9,160.5 L195.0,84.4" fill="none" stroke="#73bf69" stroke-width="1.2" stroke-linejoin="round"/>
+<circle cx="809.8" cy="188.0" r="2.5" fill="#73bf69"/>
+<defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2cc0c" stop-opacity="0.22"/><stop offset="1" stop-color="#f2cc0c" stop-opacity="0"/></linearGradient></defs>
+<path d="M62.5,209.7 L74.5,209.4 L86.6,209.5 L98.6,209.4 L110.7,209.5 L122.7,209.5 L134.8,209.5 L146.8,209.5 L158.9,209.5 L170.9,209.4 L183.0,209.4 L195.0,209.4 L207.1,209.5 L219.2,209.5 L231.2,209.5 L243.3,209.4 L255.3,209.5 L267.4,209.5 L279.4,209.4 L291.5,209.4 L291.5,210.0 L62.5,210.0 Z" fill="url(#g3)"/>
+<path d="M62.5,209.7 L74.5,209.4 L86.6,209.5 L98.6,209.4 L110.7,209.5 L122.7,209.5 L134.8,209.5 L146.8,209.5 L158.9,209.5 L170.9,209.4 L183.0,209.4 L195.0,209.4 L207.1,209.5 L219.2,209.5 L231.2,209.5 L243.3,209.4 L255.3,209.5 L267.4,209.5 L279.4,209.4 L291.5,209.4" fill="none" stroke="#f2cc0c" stroke-width="1.2" stroke-linejoin="round"/>
+</g>
+<rect x="50.4" y="236.0" width="14" height="4" rx="1" fill="#73bf69"/>
+<text x="70.4" y="242.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#ccccdc" text-anchor="start">DefaultTransport</text>
+<rect x="196.0" y="236.0" width="14" height="4" rx="1" fill="#f2cc0c"/>
+<text x="216.0" y="242.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#ccccdc" text-anchor="start">MaxIdleConnsPerHost 128</text>
+<rect x="8" y="266" width="428" height="246" rx="2" fill="#181b1f" stroke="#2c3235" stroke-width="1"/>
+<text x="20.0" y="288.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" font-weight="500" fill="#ccccdc" text-anchor="start">Open connections</text>
+<line x1="50.4" y1="484.0" x2="422.0" y2="484.0" stroke="#26292f" stroke-width="1"/>
+<text x="42.4" y="488.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="end">0</text>
+<line x1="50.4" y1="424.7" x2="422.0" y2="424.7" stroke="#26292f" stroke-width="1"/>
+<text x="42.4" y="428.7" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="end">5 K</text>
+<line x1="50.4" y1="365.3" x2="422.0" y2="365.3" stroke="#26292f" stroke-width="1"/>
+<text x="42.4" y="369.3" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="end">10 K</text>
+<line x1="50.4" y1="306.0" x2="422.0" y2="306.0" stroke="#26292f" stroke-width="1"/>
+<text x="42.4" y="310.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="end">15 K</text>
+<line x1="111.4" y1="306.0" x2="111.4" y2="484.0" stroke="#26292f" stroke-width="1"/>
+<text x="111.4" y="500.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="middle">18:36:20</text>
+<line x1="222.3" y1="306.0" x2="222.3" y2="484.0" stroke="#26292f" stroke-width="1"/>
+<text x="222.3" y="500.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="middle">18:36:40</text>
+<line x1="333.3" y1="306.0" x2="333.3" y2="484.0" stroke="#26292f" stroke-width="1"/>
+<text x="333.3" y="500.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="middle">18:37:00</text>
+<defs><clipPath id="c4"><rect x="50.4" y="306.0" width="371.6" height="178.0"/></clipPath></defs>
+<g clip-path="url(#c4)">
+<defs><linearGradient id="g5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#73bf69" stop-opacity="0.22"/><stop offset="1" stop-color="#73bf69" stop-opacity="0"/></linearGradient></defs>
+<path d="M55.9,483.2 L61.5,483.2 L67.0,483.2 L72.6,483.2 L78.1,483.2 L83.7,483.2 L89.2,483.2 L94.8,483.2 L100.3,482.6 L105.9,471.2 L117.0,332.6 L117.0,484.0 L55.9,484.0 Z" fill="url(#g5)"/>
+<path d="M55.9,483.2 L61.5,483.2 L67.0,483.2 L72.6,483.2 L78.1,483.2 L83.7,483.2 L89.2,483.2 L94.8,483.2 L100.3,482.6 L105.9,471.2 L117.0,332.6" fill="none" stroke="#73bf69" stroke-width="1.2" stroke-linejoin="round"/>
+<circle cx="399.8" cy="484.0" r="2.5" fill="#73bf69"/>
+<defs><linearGradient id="g6" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2cc0c" stop-opacity="0.22"/><stop offset="1" stop-color="#f2cc0c" stop-opacity="0"/></linearGradient></defs>
+<path d="M55.9,482.2 L61.5,481.8 L67.0,481.8 L72.6,481.8 L78.1,481.8 L83.7,481.8 L89.2,482.1 L94.8,482.1 L100.3,482.1 L105.9,482.1 L111.4,482.1 L117.0,482.1 L122.5,482.1 L128.0,482.1 L133.6,482.1 L139.1,482.1 L144.7,482.1 L150.2,482.1 L155.8,482.1 L161.3,482.1 L161.3,484.0 L55.9,484.0 Z" fill="url(#g6)"/>
+<path d="M55.9,482.2 L61.5,481.8 L67.0,481.8 L72.6,481.8 L78.1,481.8 L83.7,481.8 L89.2,482.1 L94.8,482.1 L100.3,482.1 L105.9,482.1 L111.4,482.1 L117.0,482.1 L122.5,482.1 L128.0,482.1 L133.6,482.1 L139.1,482.1 L144.7,482.1 L150.2,482.1 L155.8,482.1 L161.3,482.1" fill="none" stroke="#f2cc0c" stroke-width="1.2" stroke-linejoin="round"/>
+</g>
+<rect x="444" y="266" width="428" height="246" rx="2" fill="#181b1f" stroke="#2c3235" stroke-width="1"/>
+<text x="456.0" y="288.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" font-weight="500" fill="#ccccdc" text-anchor="start">Caller throttled periods</text>
+<line x1="486.4" y1="484.0" x2="858.0" y2="484.0" stroke="#26292f" stroke-width="1"/>
+<text x="478.4" y="488.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="end">0%</text>
+<line x1="486.4" y1="439.5" x2="858.0" y2="439.5" stroke="#26292f" stroke-width="1"/>
+<text x="478.4" y="443.5" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="end">25%</text>
+<line x1="486.4" y1="395.0" x2="858.0" y2="395.0" stroke="#26292f" stroke-width="1"/>
+<text x="478.4" y="399.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="end">50%</text>
+<line x1="486.4" y1="350.5" x2="858.0" y2="350.5" stroke="#26292f" stroke-width="1"/>
+<text x="478.4" y="354.5" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="end">75%</text>
+<line x1="486.4" y1="306.0" x2="858.0" y2="306.0" stroke="#26292f" stroke-width="1"/>
+<text x="478.4" y="310.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="end">100%</text>
+<line x1="547.4" y1="306.0" x2="547.4" y2="484.0" stroke="#26292f" stroke-width="1"/>
+<text x="547.4" y="500.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="middle">18:36:20</text>
+<line x1="658.3" y1="306.0" x2="658.3" y2="484.0" stroke="#26292f" stroke-width="1"/>
+<text x="658.3" y="500.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="middle">18:36:40</text>
+<line x1="769.3" y1="306.0" x2="769.3" y2="484.0" stroke="#26292f" stroke-width="1"/>
+<text x="769.3" y="500.0" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#9fa7b3" text-anchor="middle">18:37:00</text>
+<defs><clipPath id="c7"><rect x="486.4" y="306.0" width="371.6" height="178.0"/></clipPath></defs>
+<g clip-path="url(#c7)">
+<defs><linearGradient id="g8" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#73bf69" stop-opacity="0.22"/><stop offset="1" stop-color="#73bf69" stop-opacity="0"/></linearGradient></defs>
+<path d="M491.9,484.0 L497.5,484.0 L503.0,484.0 L508.6,484.0 L514.1,484.0 L519.7,484.0 L525.2,484.0 L530.8,484.0 L536.3,430.6 L541.9,306.0 L547.4,306.0 L591.8,306.0 L597.3,306.0 L625.1,306.0 L630.6,306.0 L658.3,306.0 L702.7,306.0 L713.8,306.0 L797.0,306.0 L830.3,306.0 L852.5,306.0 L858.0,306.0 L858.0,484.0 L491.9,484.0 Z" fill="url(#g8)"/>
+<path d="M491.9,484.0 L497.5,484.0 L503.0,484.0 L508.6,484.0 L514.1,484.0 L519.7,484.0 L525.2,484.0 L530.8,484.0 L536.3,430.6 L541.9,306.0 L547.4,306.0 L591.8,306.0 L597.3,306.0 L625.1,306.0 L630.6,306.0 L658.3,306.0 L702.7,306.0 L713.8,306.0 L797.0,306.0 L830.3,306.0 L852.5,306.0 L858.0,306.0" fill="none" stroke="#73bf69" stroke-width="1.2" stroke-linejoin="round"/>
+<defs><linearGradient id="g9" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2cc0c" stop-opacity="0.22"/><stop offset="1" stop-color="#f2cc0c" stop-opacity="0"/></linearGradient></defs>
+<path d="M491.9,466.2 L497.5,484.0 L503.0,484.0 L508.6,484.0 L514.1,484.0 L519.7,484.0 L525.2,466.2 L530.8,484.0 L536.3,484.0 L541.9,466.2 L547.4,484.0 L553.0,484.0 L558.5,484.0 L564.0,484.0 L569.6,484.0 L575.1,484.0 L580.7,484.0 L586.2,484.0 L591.8,484.0 L597.3,484.0 L597.3,484.0 L491.9,484.0 Z" fill="url(#g9)"/>
+<path d="M491.9,466.2 L497.5,484.0 L503.0,484.0 L508.6,484.0 L514.1,484.0 L519.7,484.0 L525.2,466.2 L530.8,484.0 L536.3,484.0 L541.9,466.2 L547.4,484.0 L553.0,484.0 L558.5,484.0 L564.0,484.0 L569.6,484.0 L575.1,484.0 L580.7,484.0 L586.2,484.0 L591.8,484.0 L597.3,484.0" fill="none" stroke="#f2cc0c" stroke-width="1.2" stroke-linejoin="round"/>
+</g>
+</svg>
