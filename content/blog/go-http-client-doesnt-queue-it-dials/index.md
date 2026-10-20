@@ -5,7 +5,7 @@ slug: "go-http-client-doesnt-queue-it-dials"
 summary: "Go's HTTP client never makes a request wait for a connection; it dials a new one. With only two idle connections kept per host, that means a new connection for almost every request under load, and on a service with a CPU limit, the cost arrives as throttling."
 tags: [go, http, networking]
 image: ""
-draft: true
+draft: false
 ---
 
 A while back, one of our worker services started getting throttled. It picks up jobs and, for each one, calls a third-party API over HTTPS on the public internet. It ran as four ECS tasks of 4 vCPU and 8 GiB. Latency was fine, since nothing waits on a worker, but the throttling metrics were all over the place.
