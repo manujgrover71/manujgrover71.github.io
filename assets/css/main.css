@@ -1087,6 +1087,84 @@ a.work-company:hover {
   color: var(--text-2);
 }
 
+/* Named formula with a worked line; data-formula="inflight" makes the line editable */
+.formula {
+  margin: 32px 0;
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--fill);
+}
+
+.formula .formula-name {
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: var(--text-2);
+}
+
+.formula .formula-expr {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  color: var(--text-strong);
+}
+
+.formula .formula-eval {
+  margin: 6px 0 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-2);
+}
+
+.formula-eval input {
+  width: 10ch;
+  padding: 1px 6px;
+  font: inherit;
+  text-align: right;
+  color: var(--text-strong);
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+}
+
+.formula-eval output {
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+.formula-slots {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  margin-top: 14px;
+}
+
+.formula-slots i {
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--text-3);
+  border-radius: 2px;
+}
+
+.formula-slots i.kept {
+  background: var(--text-strong);
+  border-color: var(--text-strong);
+}
+
+.formula-slots span {
+  margin-left: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-2);
+}
+
+.formula .formula-note {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: var(--text-2);
+}
+
 .prose hr {
   margin: 40px 0;
   border: 0;

@@ -285,6 +285,53 @@ document.querySelectorAll(".work-toggle").forEach((button) => {
   });
 });
 
+// ---- Formula calculators ----
+
+const DEFAULT_IDLE_PER_HOST = 2; // net/http's DefaultMaxIdleConnsPerHost
+const MAX_SLOTS = 64;
+
+function fmtCount(n) {
+  return n < 10 ? String(Math.round(n * 10) / 10) : Math.round(n).toLocaleString();
+}
+
+document.querySelectorAll('[data-formula="inflight"]').forEach((el) => {
+  const rate = el.querySelector('[data-k="rate"]');
+  const latency = el.querySelector('[data-k="latency"]');
+  const out = el.querySelector('[data-k="inflight"]');
+  const slots = el.querySelector(".formula-slots");
+  const note = el.querySelector('[data-k="note"]');
+
+  function update() {
+    const n = Math.max(0, (Number(rate.value) * Number(latency.value)) / 1000);
+    out.textContent = fmtCount(n);
+
+    slots.replaceChildren();
+    const count = Math.ceil(n);
+    for (let i = 0; i < Math.min(count, MAX_SLOTS); i++) {
+      const slot = document.createElement("i");
+      if (i < DEFAULT_IDLE_PER_HOST) slot.className = "kept";
+      slots.append(slot);
+    }
+    if (count > MAX_SLOTS) {
+      const more = document.createElement("span");
+      more.textContent = `+${(count - MAX_SLOTS).toLocaleString()}`;
+      slots.append(more);
+    }
+
+    if (n <= DEFAULT_IDLE_PER_HOST) {
+      note.textContent = "Fits in the default idle pool of 2, so connections get reused.";
+    } else {
+      note.textContent =
+        `The default pool keeps 2 between requests. The other ${fmtCount(n - DEFAULT_IDLE_PER_HOST)} ` +
+        "are closed whenever they come back with no request waiting.";
+    }
+  }
+
+  rate.addEventListener("input", update);
+  latency.addEventListener("input", update);
+  update();
+});
+
 // ---- Tabs ----
 
 document.querySelectorAll("[data-tabs]").forEach((group) => {

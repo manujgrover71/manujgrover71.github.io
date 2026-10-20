@@ -1,0 +1,26 @@
+{{- /*
+  A named formula with a worked line under it.
+  Usage: {{< formula name="Little's law" expr="in flight = rate × latency" eval="100 /s × 20 ms = 2" >}}
+  Params: name, expr, eval and note (markdown).
+          calc="inflight" replaces eval with editable rate and latency (rate=, latency= set the
+          starting values) and draws the in-flight connections against the default idle pool of 2.
+*/ -}}
+<figure class="formula"{{ with .Get "calc" }} data-formula="{{ . }}"{{ end }}>
+  {{- with .Get "name" }}<figcaption class="formula-name">{{ . }}</figcaption>{{ end }}
+  <p class="formula-expr">{{ .Get "expr" | .Page.RenderString }}</p>
+  {{- if eq (.Get "calc") "inflight" }}
+  <p class="formula-eval">
+    <input type="number" data-k="rate" value="{{ .Get "rate" | default 1600 }}" min="0" step="100" aria-label="Requests per second"> /s
+    × <input type="number" data-k="latency" value="{{ .Get "latency" | default 20 }}" min="0" step="5" aria-label="Latency in milliseconds"> ms
+    = <output data-k="inflight"></output> in flight
+  </p>
+  <div class="formula-slots" aria-hidden="true"></div>
+  <p class="formula-note" data-k="note" aria-live="polite"></p>
+  {{- else }}{{ with .Get "eval" }}
+  <p class="formula-eval">{{ . | $.Page.RenderString }}</p>
+  {{- end }}{{ end }}
+  {{- with .Get "note" }}
+  <p class="formula-note">{{ . | $.Page.RenderString }}</p>
+  {{- end }}
+</figure>
+{{- /**/ -}}
