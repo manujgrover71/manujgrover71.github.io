@@ -5,3 +5,5 @@
 node_modules
 public
 resources
+.DS_Store
+.claude/
