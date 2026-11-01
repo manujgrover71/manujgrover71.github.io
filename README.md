@@ -38,6 +38,7 @@ Fill in `title`, `date`, `externalUrl` and `source` (e.g. `Medium`). It shows up
 
 - Bio: `content/_index.md`. `{{< more >}}…{{< /more >}}` adds a `[?]` that reveals text inline (`confetti=true`, `photos="images/a.jpg,images/b.jpg"`).
 - Name, role, avatar, email, call link, socials, work history: `data/profile.yaml`.
+- "What's cooking" (side projects with icon, screenshot, download link and a [+] for details): `cooking` in `data/profile.yaml`; images go in `assets/images/projects/`.
 - Writing subtitle: `content/blog/_index.md`.
 
 ## Where things live

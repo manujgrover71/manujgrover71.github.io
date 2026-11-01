@@ -657,6 +657,122 @@ a.work-company:hover {
   margin-left: 2px;
 }
 
+/* What's cooking: side projects. Rows reuse the work [+] toggle and drop-down (.work-item, .work-details). */
+
+.cooking {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cook-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cook-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 9px;
+}
+
+.cook-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.cook-title {
+  display: flex;
+  align-items: baseline;
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.cook-name {
+  color: var(--text-strong);
+}
+
+.cook-tag {
+  margin-left: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.cook-summary {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--text-2);
+}
+
+.cook-download {
+  flex-shrink: 0;
+  gap: 5px;
+}
+
+.cook-download .icon {
+  transition: transform 0.2s;
+}
+
+.cook-download:hover .icon {
+  transform: translateY(1px);
+}
+
+.cook-details {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.cook-shot {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.cook-details .work-highlights {
+  overflow: visible;
+}
+
+.cook-note {
+  margin: 0 0 10px;
+  padding-left: 14px;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* Phones: Download drops under the text, lined up with it. */
+@media (max-width: 480px) {
+  .cook-row {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  .cook-body {
+    flex-basis: calc(100% - 52px);
+  }
+
+  .cook-download {
+    margin-left: 52px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cook-download .icon {
+    transition: none;
+  }
+}
+
 /* ---------- Post lists ---------- */
 
 .posts {
