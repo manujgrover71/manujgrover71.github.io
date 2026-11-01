@@ -52,3 +52,18 @@ work:
       - "Moved the important data from MySQL to DynamoDB, and the storage bill shrank 18%."
       - "Ran tech for the OTG pod while the business grew 34%. Correlation or causation, I'll take either."
       - "Made distance calculations 50% more accurate, so the distance we charge for finally matches the road."
+
+# Side projects, shown under "What's cooking". icon and shot are paths in assets/.
+# "highlights" (optional) expand under the row via its [+] toggle, like work; "note" is a small line under them.
+cooking:
+  - name: Notchboard
+    tag: macOS
+    icon: images/projects/notchboard-icon.png
+    shot: images/projects/notchboard-board.png
+    summary: "The notch was just sitting there doing nothing, so I promoted it to chief of staff."
+    url: https://notchboard.manujgrover.dev/Notchboard.dmg
+    highlights:
+      - "I never managed to open Obsidian every morning. The notch, on the other hand, I stare at all day."
+      - "Hover over it (or press ⌥N) and To do, Doing and Done drop down. Move away and they're gone."
+      - "Everything is plain Markdown in your Obsidian vault. Unfinished tasks roll into tomorrow, and a calendar shows any past day."
+    note: "macOS 14 or later. It isn't notarized yet, so the first time: System Settings → Privacy & Security → Open Anyway."

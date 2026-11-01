@@ -78,6 +78,52 @@
     </section>
   {{ end }}
 
+  {{ with $p.cooking }}
+    <section class="section">
+      <h2 class="section-label">What's cooking</h2>
+      <ul class="cooking">
+        {{ range $i, $c := . }}
+          {{ $id := printf "cooking-%d" $i }}
+          <li class="work-item cook-item">
+            <div class="cook-row">
+              {{ with resources.Get .icon }}
+                {{ $img := partial "publish.html" (dict "res" (.Fill "96x96 webp") "dir" "img" "name" (printf "%s-icon" (urlize $c.name)) "ext" ".webp" "key" (printf "%s|Fill 96x96 webp" (md5 .Content))) }}
+                <img class="cook-icon" src="{{ $img.RelPermalink }}" width="40" height="40" alt="">
+              {{ end }}
+              <div class="cook-body">
+                <p class="cook-title">
+                  <span class="cook-name">{{ .name }}</span>
+                  {{- with .highlights }}<button type="button" class="work-toggle" aria-expanded="false" aria-controls="{{ $id }}" aria-label="More about {{ $c.name }}"><span class="work-toggle-closed">[+]</span><span class="work-toggle-open">[−]</span></button>{{ end }}
+                  {{- with .tag }}<span class="cook-tag">{{ . }}</span>{{ end }}
+                </p>
+                <p class="cook-summary">{{ .summary }}</p>
+              </div>
+              {{ with .url }}
+                <a class="pill pill--outline cook-download" href="{{ . }}" download>{{ partial "icon.html" (dict "name" "download" "size" 13) }}Download</a>
+              {{ end }}
+            </div>
+            {{ if or .highlights .shot }}
+              <div class="work-details" id="{{ $id }}" inert>
+                <div class="cook-details">
+                  {{ with resources.Get .shot }}
+                    {{ $shot := partial "publish.html" (dict "res" (.Resize "1200x webp") "dir" "img" "name" (printf "%s-shot" (urlize $c.name)) "ext" ".webp" "key" (printf "%s|Resize 1200x webp" (md5 .Content))) }}
+                    <img class="cook-shot" src="{{ $shot.RelPermalink }}" width="{{ $shot.Width }}" height="{{ $shot.Height }}" alt="{{ $c.name }}: today's board open in the notch" loading="lazy">
+                  {{ end }}
+                  {{ with .highlights }}
+                    <ul class="work-highlights">
+                      {{ range . }}<li>{{ . | $.Page.RenderString }}</li>{{ end }}
+                    </ul>
+                  {{ end }}
+                  {{ with .note }}<p class="cook-note">{{ . | $.Page.RenderString }}</p>{{ end }}
+                </div>
+              </div>
+            {{ end }}
+          </li>
+        {{ end }}
+      </ul>
+    </section>
+  {{ end }}
+
   {{ with site.GetPage "/blog" }}
     {{ $posts := .RegularPages.ByDate.Reverse }}
     {{ if $posts }}
